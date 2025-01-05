@@ -14,7 +14,7 @@ namespace DemoWebApp.Pages
 
         public void OnGet()
         {
-            throw new Exception("testing insights");
+            //throw new Exception("testing insights");
         }
     }
 
