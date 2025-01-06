@@ -1,22 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using DemoWebApp.Data;
 
 namespace DemoWebApp.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly IConfiguration configuration;
+        private readonly DemoWebApp.Data.AppDbContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger,IConfiguration configuration)
+        public IndexModel(DemoWebApp.Data.AppDbContext context)
         {
-            _logger = logger;
-            this.configuration = configuration;
+            _context = context;
         }
 
-        public void OnGet()
+        public IList<Person> Person { get;set; } = default!;
+
+        public async Task OnGetAsync()
         {
-            ViewData["Greeting"] = configuration["Greeting"];
+            Person = await _context.Persons.ToListAsync();
         }
     }
 }
